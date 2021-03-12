@@ -1,19 +1,27 @@
 package ru.netology.manager;
 
-import ru.netology.domain.PurchaseItem;
+import ru.netology.domain.BillboardItem;
 
-public class CartManager {
-    private PurchaseItem[] items = new PurchaseItem[0];
+public class BillboardManager {
+    private BillboardItem[] items = new BillboardItem[0];
+    private int len = 10;
 
-    public void add(PurchaseItem item) {
+    public BillboardManager() {
+    }
+
+    public BillboardManager(int len) {
+        this.len = len;
+    }
+
+    public void add(BillboardItem item) {
         // создаём новый массив размером на единицу больше
         int length = items.length + 1;
-        PurchaseItem[] tmp = new PurchaseItem[length];
-        // itar + tab
+        BillboardItem[] tmp = new BillboardItem[length];
+        /*
         // копируем поэлементно
         // for (int i = 0; i < items.length; i++) {
         //   tmp[i] = items[i];
-        // }
+        // }*/
         System.arraycopy(items, 0, tmp, 0, items.length);
         // кладём последним наш элемент
         int lastIndex = tmp.length - 1;
@@ -21,8 +29,14 @@ public class CartManager {
         items = tmp;
     }
 
-    public PurchaseItem[] getAll() {
-        PurchaseItem[] result = new PurchaseItem[items.length];
+    public BillboardItem[] getAll() {
+
+        if (len > items.length){
+            len = items.length;
+        }
+
+        BillboardItem[] result = new BillboardItem[len];
+
         // перебираем массив в прямом порядке
         // но кладём в результаты в обратном
         for (int i = 0; i < result.length; i++) {
@@ -35,9 +49,9 @@ public class CartManager {
     // наивная реализация
     public void removeById(int id) {
         int length = items.length - 1;
-        PurchaseItem[] tmp = new PurchaseItem[length];
+        BillboardItem[] tmp = new BillboardItem[length];
         int index = 0;
-        for (PurchaseItem item : items) {
+        for (BillboardItem item : items) {
             if (item.getId() != id) {
                 tmp[index] = item;
                 index++;
